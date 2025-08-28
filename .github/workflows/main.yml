@@ -1,0 +1,36 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Instalar dependências
+        run: npm install
+
+      #- name: Executar testes
+      #  run: npm test
+
+      - name: Analisar licenças
+        run: npx license-checker --json > licenses.json
+
+      - name: Implantação
+        run: |
+          # Comandos para implantar sua aplicação
+          echo "Implantação realizada com sucesso!"
